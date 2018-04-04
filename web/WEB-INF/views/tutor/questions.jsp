@@ -11,21 +11,33 @@
 <head>
     <title>Tutor Question</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="/css/questions.css" rel="stylesheet">
+    <link href="/css/checkbox.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div>
-    Название вопроса:
+
+<div id = "chooseTestName">
+    Выберете тест:
+    <input type="text" name="test" id="choose_test" list="test_list">
+    <datalist id="test_list">
+        <c:forEach items="${testList}" var="test">
+            <option>${test.getName()}</option>
+        </c:forEach>
+    </datalist>
+</div>
+
+<div id = "chooseQuestionName" style="display:none;">
+    Выберете существующий или введите новый вопрос:
     <input type="text" name="question" id="choose_question" list="question_list">
+        <button id = "deleteQuestion" class="btn btn-danger" onclick="deleteQuestion()" style="display: none">Удалить Вопрос</button>
         <datalist id="question_list">
             <c:forEach items="${questionList}" var="question">
-                <option itemid="${question.getId()}" id="${question.getDescription()}">${question.getDescription()}</option>
+                <option>${question.getDescription()}</option>
             </c:forEach>
         </datalist>
-</div>
 
 <ol id = "answers">
     <c:forEach items="${answerList}" var="answer">
@@ -33,34 +45,76 @@
     </c:forEach>
 </ol>
 
-<div id = "addAnswer">
-    <a class="text-primary" onclick="addAnswer()">Добавить ответ</a>
+<div id = "addAnswer" >
+    <a class="text-primary" onclick="addAnswerButton()">Добавить ответ</a>
+</div>
 </div>
 
 <a class="btn btn-primary" href="/tutor/tutorMainPage">Назад</a>
 
 <script>
 
+    $("#choose_test").on("change keyup input", function(){
+        getQuestions();
+    });
+
     $("#choose_question").on("change keyup input", function (){
+        checkQuestion();
         getAnswers();
         changeAnswerField();
     });
 
-    function getAnswers() {
-        var choose_question = $("#choose_question").val();
-        try {
-            var question = document.getElementById(choose_question).getAttribute('itemId');
+    function getQuestions() {
+        checkQuestion();
+        var test = $("#choose_test").val();
 
+        $.ajax({
+            type: "get",
+            url: "/tutor/getQuestions/checkTest",
+            data: {test: test},
+            contentType:
+                "application/json; charset=utf-8",
+            success: function (check) {
+                if (check) {
+                    document.getElementById("chooseQuestionName").style.display = "block";
+                } else document.getElementById("chooseQuestionName").style.display = "none";
+
+                $.ajax({
+                    type: "get",
+                    url: "/tutor/getTopics/getQuestionsByTestId",
+                    data: {test: test},
+                    contentType:
+                        "application/json; charset=utf-8",
+                    success: function (data) {
+                        var item = $('<datalist id="question_list"></datalist>');
+                        for (var i = 0; i < data.length; i++) {
+                            item.append("<option>" + data[i].description + "</option>");
+                        }
+                        $("#question_list").replaceWith(item);
+                    },
+                    error: function () {
+                        var item = $('<datalist id="question_list"></datalist>');
+                        item.append("<option>" + "</option>");
+                        $("#question_list").replaceWith(item);
+                    }
+                });
+            }
+        });
+    }
+
+    function getAnswers() {
+        var question = $("#choose_question").val();
+        try {
             $.ajax({
                 type: "get",
-                url: "/tutor/getQuestions/getAnswersByQuestionId",
+                url: "/tutor/getQuestions/getAnswersByQuestion",
                 data: {question: question},
                 contentType:
                     "application/json; charset=utf-8",
                 success: function (data) {
                     var item = $('<ol id="answers"></ol>');
                     for (var i = 0; i < data.length; i++) {
-                        item.append("<li>" + data[i].description + "</li>");
+                        item.append("<li>" + data[i].description + "<u class='alert-link' onclick=" + 'deleteAnswer(' + data[i].id + ')' + "> delete </u></li>");
                     }
                     $("#answers").replaceWith(item);
                 },
@@ -77,38 +131,53 @@
         }
     }
 
-    function addAnswer() {
+    function addAnswerButton() {
         questionName = ($("#choose_question").val());
         if (questionName != '') {
             var item = $('<div id="addAnswer"></div>');
             item.append('<input type="text" id="answer">');
             item.append('<a class="btn btn-success" onclick="saveAnswer()">Сохранить</a>');
+            item.append('<div><input type="checkbox" id="correct" /><label for="c1"><span></span> correct? </label></div>');
             $("#addAnswer").replaceWith(item);
         }
         else
             alert("please select your question");
     }
 
+    function checkQuestion() {
+        var question = $("#choose_question").val();
+        $.ajax({
+            type: "get",
+            url: "/tutor/getQuestions/checkQuestion",
+            data: {question: question},
+            contentType:
+                "application/json; charset=utf-8",
+            success: function (check) {
+                if (check) {
+                    document.getElementById("deleteQuestion").style.display = "block";
+                } else document.getElementById("deleteQuestion").style.display = "none";
+            }
+        });
+    }
+
     function saveAnswer() {
         try {
             var answer = $("#answer").val();
             var question = $("#choose_question").val();
-            var questionId = document.getElementById(question).getAttribute('itemId');
+            var test = $("#choose_test").val();
+            var correct = $('#correct').is(':checked');
         } catch (e) {
-            questionId = -1;
         }
         if (answer != '' && question != '') {
-
-            console.log(answer, question, questionId);
-
             $.ajax({
                 type: "get",
                 url: "/tutor/getQuestions/addAnswer",
-                data: {answer: answer, question: question, questionId: questionId},
+                data: {answer: answer, question: question, correct: correct, test: test},
                 contentType:
                     "application/json; charset=utf-8",
                 success: function () {
                     alert(question + " was updated");
+                    getQuestions();
                     getAnswers();
                     changeAnswerField();
                 },
@@ -118,10 +187,40 @@
             });
         }
     }
+
+    function deleteQuestion() {
+        var question = $("#choose_question").val();
+        $.ajax({
+            type: "get",
+            url: "/tutor/getQuestions/deleteQuestion",
+            data: {question: question},
+            contentType:
+                "application/json; charset=utf-8",
+            success: function () {
+                getQuestions();
+                $("#choose_question").val('');
+                getAnswers();
+                alert("question " + question + " was deleted")
+            }
+        });
+    }
+
+    function deleteAnswer(answerId) {
+        $.ajax({
+            type: "get",
+            url: "/tutor/getQuestions/deleteAnswer",
+            data: {answer: answerId},
+            contentType:
+                "application/json; charset=utf-8",
+            success: function () {
+                getAnswers();
+            }
+        });
+    }
         
     function changeAnswerField() {
         var item = $('<div id="addAnswer"></div>');
-        item.append('<a class="text-primary" onclick="addAnswer()">Добавить ответ</a>');
+        item.append('<a class="text-primary" onclick="addAnswerButton()">Добавить ответ</a>');
         $("#addAnswer").replaceWith(item);
     }
 </script>

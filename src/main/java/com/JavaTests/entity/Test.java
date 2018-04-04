@@ -67,6 +67,16 @@ public class Test {
         this.topic = topic;
     }
 
+    @Override
+    public String toString() {
+        return "Test{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", topic=" + topic +
+                '}';
+    }
+
 //    public Set<Question> getListQuestion() {
 //        return listQuestion;
 //    }

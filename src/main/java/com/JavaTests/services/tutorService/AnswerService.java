@@ -9,4 +9,8 @@ public interface AnswerService {
     void addAnswer(Answer answer);
 
     List<Answer> findByQuestionId(Integer questionId);
+
+    void deleteAnswer(Answer answer);
+
+    Answer findById(Integer answerId);
 }

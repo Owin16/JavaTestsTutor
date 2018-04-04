@@ -25,12 +25,21 @@
             </c:forEach>
         </datalist>
 </div>
-<div>
+<div id = "chooseTestName" style="display:none;">
     Название теста:
     <input type="text" name="test" id="choose_test" list="test_list">
     <datalist id="test_list">
         <c:forEach items="${testList}" var="test">
-            <option>${test.getName()}</option>>
+            <option>${test.getName()}</option>
+        </c:forEach>
+    </datalist>
+</div>
+<div id = "chooseQuestionName" style="display:none;">
+    Название вопроса:
+    <input type="text" name="test" id="choose_question" list="question_list">
+    <datalist id="question_list">
+        <c:forEach items="${questionList}" var="question">
+            <option>${question.getDescription()}</option>>
         </c:forEach>
     </datalist>
 </div>
@@ -42,7 +51,12 @@
 
     $("#choose_topic").on("change keyup input", function(){
         var topic = $(this).val();
+        if (topic != '') {
+            document.getElementById("chooseTestName").style.display = "block";
+        }else document.getElementById("chooseTestName").style.display = "none";
+
         $("#choose_test").val('');
+
 
         $.ajax({
             type: "get",
@@ -53,7 +67,7 @@
             success: function (data) {
                 var item = $('<datalist id="test_list"></datalist>');
                 for(var i=0; i<data.length; i++) {
-                    item.append("<option>" + data[i].name +"</option>");
+                    item.append("<option>" + data[i].name + "</option>");
                 }
                 $("#test_list").replaceWith(item);
             },
@@ -65,21 +79,53 @@
         });
     });
 
+    $("#choose_test").on("change keyup input", function(){
+        var test = $(this).val();
+
+        if (test != '') {
+            document.getElementById("chooseQuestionName").style.display = "block";
+        }else document.getElementById("chooseQuestionName").style.display = "none";
+        try {
+            $("#choose_question").val('');
+            $.ajax({
+                type: "get",
+                url: "/tutor/getTopics/getQuestionsByTestId",
+                data: {test: test},
+                contentType:
+                    "application/json; charset=utf-8",
+                success: function (data) {
+                    var item = $('<datalist id="question_list"></datalist>');
+                    for (var i = 0; i < data.length; i++) {
+                        item.append("<option>" + data[i].description + "</option>");
+                    }
+                    $("#question_list").replaceWith(item);
+                },
+                error: function () {
+                    var item = $('<datalist id="question_list"></datalist>');
+                    item.append("<option>" + "</option>");
+                    $("#question_list").replaceWith(item);
+                }
+            });
+        }catch (e){
+        }
+    });
+
     $("#save").on('click', function () {
         topicName = ($("#choose_topic").val());
         testName = ($("#choose_test").val());
+        questionName = ($("#choose_question").val());
         if (topicName != '' && testName != ''){
             $.ajax({
                 type: "get",
                 url: "/tutor/getTopics/addTopic",
-                data: {topic: topicName, test: testName},
+                data: {topic: topicName, test: testName, question: questionName},
                 contentType:
                     "application/json; charset=utf-8",
                 success: function (data) {
                     alert(topicName + " was saved");
-                    $("#choose_test").val('');
                     $("#choose_topic").val('');
-                    $("#choose_topic").html(data);
+                    document.getElementById("chooseQuestionName").style.display = "none";
+                    document.getElementById("chooseTestName").style.display = "none";
                 },
                 error: function () {
                     alert(topicName + " was NOT saved");

@@ -19,11 +19,22 @@ public class Answer {
     @JoinColumn(name = "questionId")
     private Question question;
 
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", correct=" + correct +
+                ", question=" + question +
+                '}';
+    }
+
     public Answer() {
     }
 
-    public Answer(String description, Question question) {
+    public Answer(String description, boolean correct, Question question) {
         this.description = description;
+        this.correct = correct;
         this.question = question;
     }
 

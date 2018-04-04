@@ -40,6 +40,11 @@ public class TestServiceImpl implements TestService {
     }
 
     @Transactional
+    public Test findByTestName(String name) {
+        return testRepository.findByName(name);
+    }
+
+    @Transactional
     public void deleteTest(Test test) {
         testRepository.delete(test);
     }

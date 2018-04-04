@@ -20,4 +20,5 @@ public interface QuestionRepository extends CrudRepository<Question, Integer> {
     Question findByDescription(String description);
 
     Question findById(Integer id);
+
 }

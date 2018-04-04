@@ -24,4 +24,14 @@ public class AnswerServiceImpl implements AnswerService {
     public List<Answer> findByQuestionId(Integer questionId) {
         return answerRepository.findByQuestionId(questionId);
     }
+
+    @Transactional
+    public void deleteAnswer(Answer answer) {
+        answerRepository.delete(answer);
+    }
+
+    @Transactional
+    public Answer findById(Integer answerId) {
+        return answerRepository.findById(answerId);
+    }
 }

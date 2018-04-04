@@ -16,4 +16,6 @@ public interface TestRepository extends CrudRepository<Test, Integer> {
     List<Test> findByTopicName(String topicName);
 
     List<Test> findByTopic(Topic topic);
+
+    Test findByName(String name);
 }

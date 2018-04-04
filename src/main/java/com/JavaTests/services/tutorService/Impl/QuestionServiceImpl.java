@@ -36,4 +36,20 @@ public class QuestionServiceImpl implements QuestionService {
         return questionList;
     }
 
+
+    @Transactional
+    public List<Question> findByTestId(Integer testId) {
+        return questionRepository.findByTestId(testId);
+    }
+
+    @Transactional
+    public Question findByDescription(String questionDescription) {
+        return questionRepository.findByDescription(questionDescription);
+    }
+
+    @Override
+    public void deleteQuestion(Question question) {
+        questionRepository.delete(question);
+    }
+
 }

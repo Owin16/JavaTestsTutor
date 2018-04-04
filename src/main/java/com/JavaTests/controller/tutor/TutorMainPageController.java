@@ -1,6 +1,7 @@
 package com.JavaTests.controller.tutor;
 
 import com.JavaTests.entity.Question;
+import com.JavaTests.entity.Test;
 import com.JavaTests.entity.Topic;
 import com.JavaTests.services.tutorService.QuestionService;
 import com.JavaTests.services.tutorService.TestService;
@@ -41,6 +42,8 @@ public class TutorMainPageController {
     @RequestMapping(value = "/getQuestions", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public String getQuestionPage(Model model) {
         List<Question> questionList = questionService.getQuestions();
+        List<Test> testList = testService.getTests();
+        model.addAttribute("testList", testList);
         model.addAttribute("questionList", questionList);
         return "tutor/questions";
     }

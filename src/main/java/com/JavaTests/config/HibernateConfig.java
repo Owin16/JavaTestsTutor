@@ -17,7 +17,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -56,8 +58,13 @@ public class HibernateConfig {
         properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
         properties.put("hibernate.id.new_generator_mappings", environment.getProperty("hibernate.id.new_generator_mappings"));
+        properties.put("hibernate.connection.useUnicode", environment.getProperty("hibernate.connection.useUnicode"));
+        properties.put("hibernate.connection.charSet", environment.getProperty("hibernate.connection.charSet"));
+        properties.put("hibernate.connection.characterEncoding", environment.getProperty("hibernate.connection.characterEncoding"));
         return properties;
     }
+
+
 
     @Bean(name="transactionManager")
     public PlatformTransactionManager txManager(){
@@ -75,6 +82,5 @@ public class HibernateConfig {
         dataSource.setPassword(environment.getProperty("hibernate.password"));
         return dataSource;
     }
-
 
 }

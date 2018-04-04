@@ -1,18 +1,22 @@
 package com.JavaTests.controller;
 
+import com.JavaTests.entity.Role;
 import com.JavaTests.entity.Topic;
 import com.JavaTests.entity.User;
 import com.JavaTests.services.security.SecurityService;
 import com.JavaTests.services.userService.UserService;
 import com.JavaTests.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -44,7 +48,8 @@ public class AppController {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getLogin(), userForm.getPassword());
+      //  securityService.autologin(userForm.getLogin(), userForm.getPassword());
+        System.out.println("uuuuser");
 
         return "redirect:/welcome";
     }
@@ -62,8 +67,16 @@ public class AppController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        return "security/welcome";
+        Collection user = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        switch (user.toString()){
+            case "[ROLE_TUTOR]":
+                return "tutor/tutorMain";
+            case "[ROLE_ADMIN]":
+                return "admin/role";
+            case "[ROLE_USER]":
+                return "user/home";
+            default:
+                return "security/login";
+        }
     }
-
-
 }

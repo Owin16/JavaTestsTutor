@@ -30,6 +30,11 @@ public class Question {
         this.description = description;
     }
 
+    public Question(String description, Test test) {
+        this.description = description;
+        this.test = test;
+    }
+
     public int getId() {
         return id;
     }

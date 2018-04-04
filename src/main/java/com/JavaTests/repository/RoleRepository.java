@@ -9,4 +9,6 @@ public interface RoleRepository extends CrudRepository<Role, Integer> {
 
     Role findByUser(Integer user);
 
+    Role findByTutor(Integer tutor);
+
 }
