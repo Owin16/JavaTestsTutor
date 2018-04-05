@@ -7,8 +7,7 @@ VIEW `question_statistic` AS
         `question`.`id` AS `questionId`,
         `question`.`description` AS `description`,
         COUNT(`statistic`.`questionId`) AS `count`,
-        (SUM(`statistic`.`correct`) / COUNT(`statistic`.`questionId`)) AS `correct`,
-        (1 - (SUM(`statistic`.`correct`) / COUNT(`statistic`.`questionId`))) AS `incorrect`
+        (SUM(`statistic`.`correct`) / COUNT(`statistic`.`questionId`)) AS `correct`
     FROM
         (`question`
         JOIN `statistic`)
@@ -51,8 +50,7 @@ VIEW `test_statistic` AS
         `test_results`.`testId` AS `testId`,
         `test_results`.`name` AS `name`,
         COUNT(0) AS `count`,
-        AVG(`test_results`.`correct`) AS `correct`,
-        (1 - AVG(`test_results`.`correct`)) AS `incorrect`
+        AVG(`test_results`.`correct`) AS `correct`
     FROM
         `test_results`
     GROUP BY `test_results`.`testId`
@@ -67,8 +65,7 @@ VIEW `user_statistic` AS
         `test_results`.`firstName` AS `firstName`,
         `test_results`.`lastName` AS `lastName`,
         COUNT(0) AS `count`,
-        AVG(`test_results`.`correct`) AS `correct`,
-        (1 - AVG(`test_results`.`correct`)) AS `incorrect`
+        AVG(`test_results`.`correct`) AS `correct`
     FROM
         `test_results`
     GROUP BY `test_results`.`userId`

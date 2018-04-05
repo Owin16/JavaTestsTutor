@@ -17,8 +17,6 @@ public class UserStatistic {
     private int count;
     @Column(name = "correct")
     private double correct;
-    @Column(name = "incorrect")
-    private double incorrect;
 
     public UserStatistic(){
 
@@ -54,14 +52,6 @@ public class UserStatistic {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public double getIncorrect() {
-        return incorrect;
-    }
-
-    public void setIncorrect(double incorrect) {
-        this.incorrect = incorrect;
     }
 
     public String getLastName() {

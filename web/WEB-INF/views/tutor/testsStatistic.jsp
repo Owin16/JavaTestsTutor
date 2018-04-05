@@ -21,7 +21,6 @@
         <th>Название теста</th>
         <th>Пройдено всего</th>
         <th>Правильно</th>
-        <th>Неправильно</th>
     </tr>
     </thead>
     <c:forEach items="${testStatistic}" var="test">
@@ -29,7 +28,6 @@
             <td>${test.getName()}</td>
             <td>${test.getCount()}</td>
             <td>${test.getCorrect()*100}%</td>
-            <td>${test.getIncorrect()*100}%</td>
         </tr>
     </c:forEach>
 </table>

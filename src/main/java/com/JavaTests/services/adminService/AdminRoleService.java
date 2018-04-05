@@ -19,4 +19,8 @@ public class AdminRoleService {
     public List<Role> getRoles() {
         return Lists.newArrayList(roleRepository.findAll());
     }
+
+    public Role getTutor() {
+        return roleRepository.findByTutor(1);
+    }
 }

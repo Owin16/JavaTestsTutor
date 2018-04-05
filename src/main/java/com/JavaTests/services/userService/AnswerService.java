@@ -41,4 +41,7 @@ public class AnswerService {
         return Lists.newArrayList(answerRepository.findByQuestionId(questionId));
     }
 
+    public Answer findById(int answerId) {
+        return answerRepository.findById(answerId);
+    }
 }

@@ -2,13 +2,17 @@ package com.JavaTests.controller.admin;
 
 import com.JavaTests.entity.Role;
 import com.JavaTests.entity.Topic;
+import com.JavaTests.entity.User;
 import com.JavaTests.services.adminService.AdminRoleService;
 import com.JavaTests.services.adminService.AdminTopicService;
+import com.JavaTests.services.adminService.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -19,8 +23,43 @@ public class AdminRoleController {
     private AdminRoleService adminRoleService;
 
     @Autowired
+    private AdminUserService adminUserService;
+
+    @Autowired
     public AdminRoleController(AdminRoleService adminRoleService) {
         this.adminRoleService = adminRoleService;
+    }
+
+
+    @RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public String getUsers(Model model) {
+        List<User> userList = adminUserService.getUsers();
+        model.addAttribute("userList", userList);
+        return "admin/users";
+    }
+
+    @RequestMapping(value = "/getUsersRest", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<User> getUsersRest() {
+        List<User> userList = adminUserService.getUsers();
+        return userList;
+    }
+
+    @RequestMapping(value = "/checkUser", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public boolean checkTest(@ModelAttribute("user") String userLogin) {
+        User user = adminUserService.findByLogin(userLogin);
+        if (user == null) return false;
+        return true;
+    }
+
+    @RequestMapping(value = "/saveAsTutor", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public String saveAsTutor(Model model, @ModelAttribute("userLogin") String userLogin) {
+        User user = adminUserService.findByLogin(userLogin);
+        Role role = adminRoleService.getTutor();
+        user.setRole(role);
+        adminUserService.saveAsTutor(user);
+        return "admin/users";
     }
 
     //    @RequestMapping(value = "/getRole")

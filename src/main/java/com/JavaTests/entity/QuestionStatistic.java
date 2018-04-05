@@ -16,8 +16,6 @@ public class QuestionStatistic {
     private int count;
     @Column(name = "correct")
     private double correct;
-    @Column(name = "incorrect")
-    private double incorrect;
 
     public QuestionStatistic(){
 
@@ -55,11 +53,4 @@ public class QuestionStatistic {
         this.questionId = questionId;
     }
 
-    public double getIncorrect() {
-        return incorrect;
-    }
-
-    public void setIncorrect(double incorrect) {
-        this.incorrect = incorrect;
-    }
 }

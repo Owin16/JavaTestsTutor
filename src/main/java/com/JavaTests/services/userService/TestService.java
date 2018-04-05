@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -32,5 +34,17 @@ public class TestService {
 
     public Test getTest(int id){
         return testRepository.findOne(id);
+    }
+
+    public List<Test> getTests() {
+        List<Test> testList = new ArrayList<>();
+        Iterator<Test> iterator = testRepository.findAll().iterator();
+        while(iterator.hasNext())
+            testList.add(iterator.next());
+        return testList;
+    }
+
+    public Test findByName(String testName) {
+        return testRepository.findByName(testName);
     }
 }

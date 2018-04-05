@@ -36,7 +36,7 @@
 </div>
 <div id = "chooseQuestionName" style="display:none;">
     Название вопроса:
-    <input type="text" name="test" id="choose_question" list="question_list">
+    <input type="text" name="question" id="choose_question" list="question_list">
     <datalist id="question_list">
         <c:forEach items="${questionList}" var="question">
             <option>${question.getDescription()}</option>>

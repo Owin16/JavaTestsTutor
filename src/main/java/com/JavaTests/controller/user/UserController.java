@@ -27,6 +27,11 @@ public class UserController {
         return "user/userStatistic";
     }
 
+    @RequestMapping(value = "/mainPage", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public String getTestsPage() {
+        return "user/home";
+    }
+
     @RequestMapping(value = "/getUser/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public User getUserById(@PathVariable int id) {
         return userService.getById(id);

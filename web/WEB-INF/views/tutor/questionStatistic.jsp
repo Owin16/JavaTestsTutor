@@ -23,7 +23,6 @@
         <th>Название вопроса</th>
         <th>Пройдено всего</th>
         <th>Правильно</th>
-        <th>Неправильно</th>
     </tr>
     </thead>
         <c:forEach items="${questionStatistic}" var="question">
@@ -31,7 +30,6 @@
                 <td>${question.getDescription()}</td>
                 <td>${question.getCount()}</td>
                 <td>${question.getCorrect()*100}%</td>
-                <td>${question.getIncorrect()*100}%</td>
             </tr>
         </c:forEach>
 </table>

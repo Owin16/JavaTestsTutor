@@ -28,6 +28,13 @@ public class Statistic {
     public Statistic() {
     }
 
+    public Statistic(Date date, boolean correct, Question question, User user) {
+        this.date = date;
+        this.correct = correct;
+        this.question = question;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

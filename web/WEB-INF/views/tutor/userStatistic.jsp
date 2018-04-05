@@ -21,7 +21,6 @@
         <th>Ф.И.О.</th>
         <th>Пройдено всего</th>
         <th>Правильно</th>
-        <th>Неправильно</th>
     </tr>
     </thead>
     <c:forEach items="${userStatistic}" var="user">
@@ -29,7 +28,6 @@
             <td>${user.getFirstName()} ${user.getLastName()}</td>
             <td>${user.getCount()}</td>
             <td>${user.getCorrect()*100}%</td>
-            <td>${user.getIncorrect()*100}%</td>
         </tr>
     </c:forEach>
 </table>
