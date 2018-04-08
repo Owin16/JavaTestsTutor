@@ -1,6 +1,7 @@
 package com.JavaTests.controller.user;
 
 import com.JavaTests.entity.*;
+import com.JavaTests.services.LiteratureService;
 import com.JavaTests.services.userService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,9 @@ public class TestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LiteratureService literatureService;
 
     private List<Question> questionList;
     private List<Question> rightQuestions;
@@ -77,13 +81,18 @@ public class TestController {
             String userName = SecurityContextHolder.getContext().getAuthentication().getName();
             User user = userService.findByLogin(userName);
             Date date = new Date();
+            List<Statistic> resultStatistic = new ArrayList<>();
             for (Question question: rightQuestions) {
                 Statistic statistic = new Statistic(date, true, question, user);
                 statisticService.addStatistic(statistic);
+                resultStatistic.add(statistic);
+                model.addAttribute("resultStatistic", resultStatistic);
             }
             for (Question question: wrongQuestions) {
                 Statistic statistic = new Statistic(date, false, question, user);
                 statisticService.addStatistic(statistic);
+                resultStatistic.add(statistic);
+                model.addAttribute("resultStatistic", resultStatistic);
             }
             return "user/getResultTest";
         }

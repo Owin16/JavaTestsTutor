@@ -1,6 +1,7 @@
 package com.JavaTests.services;
 
 import com.JavaTests.entity.Literature;
+import com.JavaTests.entity.Question;
 import com.JavaTests.repository.LiteratureRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class LiteratureService {
 
     public void deleteLiterature(int id) {
         literatureRepository.delete(id);
+    }
+
+    public List<Literature> findByQuestionId(Integer questionId) {
+        return literatureRepository.findByQuestionId(questionId);
     }
 }

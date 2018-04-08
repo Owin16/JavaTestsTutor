@@ -34,7 +34,7 @@
 <script>
 
     $("#saveAsTutor").on('click', function () {
-        userLogin = ($("#choose_user").val());
+        var userLogin = ($("#choose_user").val());
 
         $.ajax({
             type: "get",

@@ -47,7 +47,7 @@ public class AdminRoleController {
 
     @RequestMapping(value = "/checkUser", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public boolean checkTest(@ModelAttribute("user") String userLogin) {
+    public boolean checkTest(@ModelAttribute("userLogin") String userLogin) {
         User user = adminUserService.findByLogin(userLogin);
         if (user == null) return false;
         return true;

@@ -50,6 +50,7 @@
 <script>
 
     $("#choose_topic").on("change keyup input", function(){
+       // checkSymbols("choose_topic");
         var topic = $(this).val();
         if (topic != '') {
             document.getElementById("chooseTestName").style.display = "block";
@@ -114,7 +115,7 @@
         topicName = ($("#choose_topic").val());
         testName = ($("#choose_test").val());
         questionName = ($("#choose_question").val());
-        if (topicName != '' && testName != ''){
+        if (topicName != '' && testName != '' && questionName != ''){
             $.ajax({
                 type: "get",
                 url: "/tutor/getTopics/addTopic",
@@ -133,6 +134,15 @@
             });
         }
     });
+
+/*    function checkSymbols(id){
+        if (/^[a-zA-Z0-9]{,255}*$/.test(id.value)) {<!-- "На лету" создаем объект класса RegExp -->
+            alert("Правильно");
+        }
+        else {
+            alert("Не правильно");
+        }
+    }*/
 
 </script>
 </body>

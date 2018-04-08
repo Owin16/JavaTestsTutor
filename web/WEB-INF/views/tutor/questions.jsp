@@ -31,7 +31,7 @@
 
 <div id = "chooseQuestionName" style="display:none;">
     Выберете существующий или введите новый вопрос:
-    <input type="text" name="question" id="choose_question" list="question_list">
+    <input pattern="[a-zA-Z0-9]{,100}" type="text" name="question" id="choose_question" list="question_list">
         <button id = "deleteQuestion" class="btn btn-danger" onclick="deleteQuestion()" style="display: none">Удалить Вопрос</button>
         <datalist id="question_list">
             <c:forEach items="${questionList}" var="question">

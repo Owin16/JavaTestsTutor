@@ -9,7 +9,7 @@ import java.util.Set;
 public class Literature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "description")
     private String description;
@@ -21,11 +21,11 @@ public class Literature {
     public Literature() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

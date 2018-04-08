@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<form method="post" id = "question" action="/user/test/getAnswer">
+<form method="post" id = "question" action="/user/test/getAnswer" onsubmit="return check();">
     ${question.description}<br>
 
     <c:forEach items="${answerList}" var="answer">
@@ -34,6 +34,18 @@
 <script>
 
    // window.onbeforeunload = function() { return "С этой страницы назад не жалательно переходить."; };
+
+   function check() {
+
+       var check = $("input:checkbox:checked");
+
+       if (check.length == 0){
+           alert("Вы должны выбрать хотя бы один ответ!");
+            return false;
+       }
+
+
+   }
 
 
     window.onload = function () {

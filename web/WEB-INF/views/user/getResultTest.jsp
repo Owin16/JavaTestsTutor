@@ -12,13 +12,31 @@
     <title>Result Test</title>
 
     <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="/css/resultTest.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <h3> Вы прошли тест на ${resultTest*100}% </h3>
 
 </head>
 <body>
 
-Вы прошли тест на ${resultTest*100}%
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Название вороса</th>
+        <th>Правильно</th>
+    </tr>
+    </thead>
+    <c:forEach items="${resultStatistic}" var="statistic">
+        <tr>
+            <td>${statistic.getQuestion().getDescription()}</td>
+            <td>${statistic.isCorrect()}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+
 
 <a class="btn btn-primary" href="/user/test/getTests">Пройти еще тест</a>
 
