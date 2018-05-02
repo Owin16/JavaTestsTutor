@@ -35,7 +35,6 @@ public class User {
         this.login = login;
         this.password = password;
         this.role = role;
-//        this.listStatistics = listStatistics;
     }
 
     public int getId() {
@@ -54,7 +53,7 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String isLastName() {
+    public String getLastName() {
         return lastName;
     }
 

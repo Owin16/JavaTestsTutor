@@ -11,7 +11,8 @@
 <head>
     <title>Test</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="/js/testsLogic.js"></script>
 </head>
@@ -44,7 +45,7 @@
     </datalist>
 </div>
 <a class="btn btn-success" id="save">Сохранить</a>
-<a class="btn btn-primary" href="/tutor/tutorMainPage">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/tutor/tutorMainPage">Назад</a>
 
 
 <script>
@@ -61,7 +62,7 @@
 
         $.ajax({
             type: "get",
-            url: "/tutor/getTopics/getTestsByTopicId",
+            url: "/JavaTests/tutor/getTopics/getTestsByTopicId",
             data: {topic: topic},
             contentType:
                 "application/json; charset=utf-8",
@@ -90,7 +91,7 @@
             $("#choose_question").val('');
             $.ajax({
                 type: "get",
-                url: "/tutor/getTopics/getQuestionsByTestId",
+                url: "/JavaTests/tutor/getTopics/getQuestionsByTestId",
                 data: {test: test},
                 contentType:
                     "application/json; charset=utf-8",
@@ -118,7 +119,7 @@
         if (topicName != '' && testName != '' && questionName != ''){
             $.ajax({
                 type: "get",
-                url: "/tutor/getTopics/addTopic",
+                url: "/JavaTests/tutor/getTopics/addTopic",
                 data: {topic: topicName, test: testName, question: questionName},
                 contentType:
                     "application/json; charset=utf-8",

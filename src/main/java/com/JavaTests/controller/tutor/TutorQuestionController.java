@@ -1,11 +1,7 @@
 package com.JavaTests.controller.tutor;
 
-import com.JavaTests.entity.Answer;
-import com.JavaTests.entity.Question;
-import com.JavaTests.entity.Test;
-import com.JavaTests.services.tutorService.AnswerService;
-import com.JavaTests.services.tutorService.QuestionService;
-import com.JavaTests.services.tutorService.TestService;
+import com.JavaTests.entity.*;
+import com.JavaTests.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +21,24 @@ public class TutorQuestionController {
     @Autowired
     private TestService testService;
 
+    @Autowired
+    LiteratureService literatureService;
+
+    @Autowired
+    LinkService linkService;
 
     @RequestMapping(value = "/getAnswersByQuestion", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Answer> getAnswersByQuestion(@ModelAttribute("question") String questionDescription) {
         Question question = questionService.findByDescription(questionDescription);
         List<Answer> answerList = answerService.findByQuestionId(question.getId());
+        return answerList;
+    }
+
+    @RequestMapping(value = "/getAnswersByQuestionIdRest/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Answer> getAnswersByQuestionIdRest(@PathVariable("id") Integer questionId) {
+        List<Answer> answerList = answerService.findByQuestionId(questionId);
         return answerList;
     }
 
@@ -81,15 +89,95 @@ public class TutorQuestionController {
         return true;
     }
 
-    @RequestMapping(value = "/getQuestionsRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public void getQuestionssRest() {
-        questionService.getQuestions();
-    }
-
     @RequestMapping(value = "/addQuestionRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public void addQuestionRest(@RequestBody Question question) {
         questionService.addQuestion(question);
     }
+
+    @RequestMapping(value = "/addAnswerRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void addAnswerRest(@RequestBody Answer answer) {
+        answerService.addAnswer(answer);
+    }
+
+    @RequestMapping(value = "/deleteAnswerRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteAnswerRest(@RequestBody Answer answer) {
+        answerService.deleteAnswer(answer);
+    }
+
+    @RequestMapping(value = "/deleteQuestionRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteQuestionRest(@RequestBody Question question) {
+        questionService.deleteQuestion(question);
+    }
+
+    @RequestMapping(value = "/updateQuestionRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateQuestionRest(@RequestBody Question question) {
+        questionService.updateQuestion(question);
+    }
+
+    @RequestMapping(value = "/updateAnswerRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateAnswerRest(@RequestBody Answer answer) {
+        answerService.updateAnswer(answer);
+    }
+
+    @RequestMapping(value = "/getLiteratureRest", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Literature> getLiteratureRest() {
+        return literatureService.findAll();
+    }
+
+    @RequestMapping(value = "/addLiteratureRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void addLiteratureRest(@RequestBody Literature literature) {
+        literatureService.addLiterature(literature);
+    }
+
+    @RequestMapping(value = "/updateLiteratureRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateLiteratureRest(@RequestBody Literature literature) {
+        literatureService.updateLiterature(literature);
+    }
+
+    @RequestMapping(value = "/deleteLiteratureRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteLiteratureRest(@RequestBody Literature literature) {
+        literatureService.deleteLiterature(literature);
+    }
+
+    @RequestMapping(value = "/getLinksRest", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Link> getLinksRest() {
+        return linkService.findAll();
+    }
+
+    @RequestMapping(value = "/getLinksByLiteratureIdRest/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Link> getLinksByLiteratureIdRest(@PathVariable ("id") Integer literatureId) {
+        return linkService.findByLiteratureId(literatureId);
+    }
+
+    @RequestMapping(value = "/addLinkRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void addLinkRest(@RequestBody Link link) {
+        linkService.addLink(link);
+    }
+
+    @RequestMapping(value = "/updateLinkRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateLinkRest(@RequestBody Link link) {
+        linkService.updateLink(link);
+    }
+
+    @RequestMapping(value = "/deleteLinkRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteLinkRest(@RequestBody Link link) {
+        linkService.deleteLink(link);
+    }
+
+
 }

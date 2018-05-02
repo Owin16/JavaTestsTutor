@@ -11,14 +11,15 @@
 <head>
     <title>Tutor Main Page</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="/logout">
+        <form id="logoutForm" method="POST" action="/JavaTests/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
@@ -30,8 +31,8 @@
 
 </div>
 
-<li><a class="text-primary" href="/tutor/getTopics">Редактировать тему/тест</a></li>
-<li><a class="text-primary" href="/tutor/getQuestions">Редактировать вопросы/ответы</a></li>
-<li><a class="text-primary" href="/tutor/getStatistics">Статистика</a></li>
+<li><a class="text-primary" href="/JavaTests/tutor/getTopics">Редактировать тему/тест</a></li>
+<li><a class="text-primary" href="/JavaTests/tutor/getQuestions">Редактировать вопросы/ответы</a></li>
+<li><a class="text-primary" href="/JavaTests/tutor/getStatistics">Статистика</a></li>
 </body>
 </html>

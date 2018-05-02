@@ -2,7 +2,7 @@ package com.JavaTests.validator;
 
 
 import com.JavaTests.entity.User;
-import com.JavaTests.services.userService.UserService;
+import com.JavaTests.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -11,14 +11,15 @@
 <head>
     <title>choose test</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 
-<form id = "chooseTestName" action="/user/test/getQuestions">
+<form id = "chooseTestName" action="/JavaTests/user/test/getQuestions">
     Название теста:
     <input type="text" name="test" id="choose_test" list="test_list">
     <datalist id="test_list">
@@ -29,7 +30,7 @@
     <button id="getTest" type="submit" class="btn btn-success">Пройти тест</button>
 </form>
 
-<a class="btn btn-primary" href="/user/c/mainPage">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/user/test/mainPage">Назад</a>
 
 
 </body>
@@ -40,7 +41,7 @@
         testName = ($("#choose_test").val());
             $.ajax({
                 type: "get",
-                url: "/user/test/checkTest",
+                url: "/JavaTests/user/test/checkTest",
                 data: {test: testName},
                 contentType:
                     "application/json; charset=utf-8",

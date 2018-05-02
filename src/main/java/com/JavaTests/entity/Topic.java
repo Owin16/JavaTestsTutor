@@ -24,6 +24,11 @@ public class Topic {
         this.name = topicName;
     }
 
+    public Topic(String topicName, String description) {
+        this.description = description;
+        this.name = topicName;
+    }
+
     public int getId() {
         return id;
     }

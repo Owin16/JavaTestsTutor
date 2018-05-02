@@ -19,6 +19,11 @@ public class Link {
     public Link() {
     }
 
+    public Link(String link, Literature literature){
+        this.link = link;
+        this.literature = literature;
+    }
+
     public int getId() {
         return id;
     }

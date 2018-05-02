@@ -11,9 +11,13 @@
 <head>
     <title>Tutor Question</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
-    <link href="/css/questions.css" rel="stylesheet">
-    <link href="/css/checkbox.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        <%@include file='../../../resources/css/questions.css' %>
+        <%@include file='../../../resources/css/checkbox.css' %>
+    </style>
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -50,7 +54,7 @@
 </div>
 </div>
 
-<a class="btn btn-primary" href="/tutor/tutorMainPage">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/tutor/tutorMainPage">Назад</a>
 
 <script>
 
@@ -70,7 +74,7 @@
 
         $.ajax({
             type: "get",
-            url: "/tutor/getQuestions/checkTest",
+            url: "/JavaTests/tutor/getQuestions/checkTest",
             data: {test: test},
             contentType:
                 "application/json; charset=utf-8",
@@ -81,7 +85,7 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/tutor/getTopics/getQuestionsByTestId",
+                    url: "/JavaTests/tutor/getTopics/getQuestionsByTestId",
                     data: {test: test},
                     contentType:
                         "application/json; charset=utf-8",
@@ -107,7 +111,7 @@
         try {
             $.ajax({
                 type: "get",
-                url: "/tutor/getQuestions/getAnswersByQuestion",
+                url: "/JavaTests/tutor/getQuestions/getAnswersByQuestion",
                 data: {question: question},
                 contentType:
                     "application/json; charset=utf-8",
@@ -148,7 +152,7 @@
         var question = $("#choose_question").val();
         $.ajax({
             type: "get",
-            url: "/tutor/getQuestions/checkQuestion",
+            url: "/JavaTests/tutor/getQuestions/checkQuestion",
             data: {question: question},
             contentType:
                 "application/json; charset=utf-8",
@@ -171,7 +175,7 @@
         if (answer != '' && question != '') {
             $.ajax({
                 type: "get",
-                url: "/tutor/getQuestions/addAnswer",
+                url: "/JavaTests/tutor/getQuestions/addAnswer",
                 data: {answer: answer, question: question, correct: correct, test: test},
                 contentType:
                     "application/json; charset=utf-8",
@@ -192,7 +196,7 @@
         var question = $("#choose_question").val();
         $.ajax({
             type: "get",
-            url: "/tutor/getQuestions/deleteQuestion",
+            url: "/JavaTests/tutor/getQuestions/deleteQuestion",
             data: {question: question},
             contentType:
                 "application/json; charset=utf-8",
@@ -208,7 +212,7 @@
     function deleteAnswer(answerId) {
         $.ajax({
             type: "get",
-            url: "/tutor/getQuestions/deleteAnswer",
+            url: "/JavaTests/tutor/getQuestions/deleteAnswer",
             data: {answer: answerId},
             contentType:
                 "application/json; charset=utf-8",

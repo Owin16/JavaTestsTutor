@@ -11,12 +11,13 @@
 <head>
     <title>Tutor Statistics</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
-<li><a href="/tutor/getStatistics/getTestStatistic">Статистика по тесту</a></li>
-<li><a href="/tutor/getStatistics/getQuestionStatistic">Статистика по вопросам</a></li>
-<li><a href="/tutor/getStatistics/getUserStatistic">Статистика пользователей</a></li>
-<a class="btn btn-primary" href="/tutor/tutorMainPage">Назад</a>
+<li><a href="/JavaTests/tutor/getStatistics/getTestStatistic">Статистика по тесту</a></li>
+<li><a href="/JavaTests/tutor/getStatistics/getQuestionStatistic">Статистика по вопросам</a></li>
+<li><a href="/JavaTests/tutor/getStatistics/getUserStatistic">Статистика пользователей</a></li>
+<a class="btn btn-primary" href="/JavaTests/tutor/tutorMainPage">Назад</a>
 </body>
 </html>

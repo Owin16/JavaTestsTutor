@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: O'win
@@ -11,8 +12,11 @@
 <head>
     <title>Tutor Question tatistic</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
-    <link href="/css/tableStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        <%@include file='../../../resources/css/tableStyle.css' %>
+    </style>
 
 
 </head>
@@ -29,10 +33,10 @@
             <tr>
                 <td>${question.getDescription()}</td>
                 <td>${question.getCount()}</td>
-                <td>${question.getCorrect()*100}%</td>
+                <td><fmt:formatNumber value="${question.getCorrect()*100}" maxFractionDigits="2"/>%</td>
             </tr>
         </c:forEach>
 </table>
-<a class="btn btn-primary" href="/tutor/getStatistics">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/tutor/getStatistics">Назад</a>
 </body>
 </html>

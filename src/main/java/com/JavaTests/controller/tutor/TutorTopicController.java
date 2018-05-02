@@ -3,9 +3,9 @@ package com.JavaTests.controller.tutor;
 import com.JavaTests.entity.Question;
 import com.JavaTests.entity.Test;
 import com.JavaTests.entity.Topic;
-import com.JavaTests.services.tutorService.QuestionService;
-import com.JavaTests.services.tutorService.TestService;
-import com.JavaTests.services.tutorService.TopicService;
+import com.JavaTests.services.QuestionService;
+import com.JavaTests.services.TestService;
+import com.JavaTests.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,11 +54,25 @@ public class TutorTopicController {
         return testList;
     }
 
+    @RequestMapping(value = "/getTestsByTopicIdRest/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Test> getTestsByTopicIdRest(@PathVariable("id") Integer topicId) {
+        List<Test> testList = testService.findByTopicId(topicId);
+        return testList;
+    }
+
     @RequestMapping(value = "/getQuestionsByTestId", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Question> getQuestionsByTestId(Model model, @ModelAttribute("test") String testName) {
         Test test = testService.findByTestName(testName);
         List<Question> questionList = questionService.findByTestId(test.getId());
+        return questionList;
+    }
+
+    @RequestMapping(value = "/getQuestionsByTestIdRest/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Question> getQuestionsByTestIdRest(@PathVariable("id") Integer testId) {
+        List<Question> questionList = questionService.findByTestId(testId);
         return questionList;
     }
 
@@ -69,9 +83,41 @@ public class TutorTopicController {
     }
 
 
-    @RequestMapping(value = "/getTopicsRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/getTopicsRest", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public void getTopicsRest() {
-        topicService.getTopics();
+    public List<Topic> getTopicsRest() {
+        List<Topic> topicList = topicService.getTopics();
+        return topicList;
     }
+
+    @RequestMapping(value = "/addTestRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void addTestRest(@RequestBody Test test) {
+        testService.addTest(test);
+    }
+
+    @RequestMapping(value = "/deleteTestRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteTestRest(@RequestBody Test test) {
+        testService.deleteTest(test);
+    }
+
+    @RequestMapping(value = "/deleteTopicRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void deleteTopicRest(@RequestBody Topic topic) {
+        topicService.deleteTopic(topic);
+    }
+
+    @RequestMapping(value = "/updateTopicRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateTopicRest(@RequestBody Topic topic) {
+        topicService.updateTopic(topic);
+    }
+
+    @RequestMapping(value = "/updateTestRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void updateTestRest(@RequestBody Test test) {
+        testService.updateTest(test);
+    }
+
 }

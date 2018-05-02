@@ -1,23 +1,16 @@
 package com.JavaTests.controller;
 
-import com.JavaTests.entity.Role;
-import com.JavaTests.entity.Topic;
 import com.JavaTests.entity.User;
-import com.JavaTests.services.security.SecurityService;
-import com.JavaTests.services.userService.UserService;
+import com.JavaTests.services.UserService;
 import com.JavaTests.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 
 @Controller
 public class AppController {
@@ -28,14 +21,17 @@ public class AppController {
     @Autowired
     private UserValidator userValidator;
 
-    @Autowired
-    private SecurityService securityService;
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
         return "security/registration";
+    }
+
+    @RequestMapping(value = "/registrationRest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void registrationRest(@RequestBody User user) {
+        userService.save(user);
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -45,11 +41,7 @@ public class AppController {
         if (bindingResult.hasErrors()) {
             return "security/registration";
         }
-
         userService.save(userForm);
-
-      //  securityService.autologin(userForm.getLogin(), userForm.getPassword());
-        System.out.println("uuuuser");
 
         return "redirect:/welcome";
     }
@@ -65,14 +57,14 @@ public class AppController {
         return "security/login";
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/welcome", "/JavaTests"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         Collection user = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         switch (user.toString()){
             case "[ROLE_TUTOR]":
                 return "tutor/tutorMain";
             case "[ROLE_ADMIN]":
-                return "admin/role";
+                return "admin/adminHome";
             case "[ROLE_USER]":
                 return "user/home";
             default:

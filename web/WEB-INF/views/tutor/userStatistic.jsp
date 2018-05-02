@@ -7,12 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>Tutor User Statistic</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
-    <link href="/css/tableStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        <%@include file='../../../resources/css/tableStyle.css' %>
+    </style>
+
 </head>
 <body>
 <table class="table table-striped">
@@ -27,10 +32,10 @@
         <tr>
             <td>${user.getFirstName()} ${user.getLastName()}</td>
             <td>${user.getCount()}</td>
-            <td>${user.getCorrect()*100}%</td>
+            <td><fmt:formatNumber value="${user.getCorrect()*100}" maxFractionDigits="2"/>%</td>
         </tr>
     </c:forEach>
 </table>
-<a class="btn btn-primary" href="/tutor/getStatistics">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/tutor/getStatistics">Назад</a>
 </body>
 </html>

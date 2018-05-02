@@ -54,9 +54,6 @@ INSERT INTO answer (description, correct, questionId) VALUES ("break", true, 5);
 INSERT INTO role (id, user, tutor, admin, role) VALUES (1, 1, 0, 0, "ROLE_USER");
 INSERT INTO role (id, user, tutor, admin, role) VALUES (2, 0, 1, 0, "ROLE_TUTOR");
 INSERT INTO role (id, user, tutor, admin, role) VALUES (3, 0, 0, 1, "ROLE_ADMIN");
-INSERT INTO role (id, user, tutor, admin, role) VALUES (4, 0, 1, 1, "ROLE_USER");
-INSERT INTO role (id, user, tutor, admin, role) VALUES (5, 1, 1, 1, "ROLE_TUTOR");
-INSERT INTO role (id, user, tutor, admin, role) VALUES (6, 1, 1, 0, "ROLE_USER");
 
 INSERT INTO statistic (correct, questionId) VALUES (true, 1);
 INSERT INTO statistic (correct, questionId) VALUES (false, 1);

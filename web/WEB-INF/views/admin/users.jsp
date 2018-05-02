@@ -11,7 +11,7 @@
 <head>
     <title>admin user's role</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -29,7 +29,7 @@
 </div>
 
 <a class="btn btn-success" id="saveAsTutor">Сделать учителем</a>
-<a class="btn btn-primary" href="/admin/role/getRole">Назад</a>
+<a class="btn btn-primary" href="/JavaTests/admin/users/adminHome">Назад</a>
 
 <script>
 
@@ -38,7 +38,7 @@
 
         $.ajax({
             type: "get",
-            url: "/admin/role/checkUser",
+            url: "/JavaTests/admin/users/checkUser",
             data: {userLogin: userLogin},
             contentType:
                 "application/json; charset=utf-8",
@@ -46,7 +46,7 @@
                 if (data) {
                     $.ajax({
                         type: "get",
-                        url: "/admin/role/saveAsTutor",
+                        url: "/JavaTests/admin/users/saveAsTutor",
                         data: {userLogin: userLogin},
                         contentType:
                             "application/json; charset=utf-8",
@@ -67,7 +67,7 @@
     function updateUsers() {
         $.ajax({
             type: "get",
-            url: "/admin/role/getUsersRest",
+            url: "/JavaTests/admin/users/getUsersRest",
             contentType:
                 "application/json; charset=utf-8",
             success: function (data) {

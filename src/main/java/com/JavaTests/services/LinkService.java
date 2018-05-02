@@ -1,39 +1,18 @@
 package com.JavaTests.services;
 
 import com.JavaTests.entity.Link;
-import com.JavaTests.repository.LinkRepository;
-import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
-public class LinkService {
+public interface LinkService {
 
-    @Autowired
-    private LinkRepository linkRepository;
+    void addLink(Link link);
 
+    void updateLink(Link link);
 
-    public List<Link> findAll(){
-        return Lists.newArrayList(linkRepository.findAll());
-    }
+    void deleteLink(Link link);
 
-    public Link getById(int id){
-        return linkRepository.findOne(id);
-    }
+    List<Link> findAll();
 
-    public void addLink(Link link) {
-        linkRepository.save(link);
-    }
-
-    public void updateLink(Link link) {
-        linkRepository.save(link);
-    }
-
-    public void deleteLink(int id) {
-        linkRepository.delete(id);
-    }
+    List<Link> findByLiteratureId(Integer id);
 }

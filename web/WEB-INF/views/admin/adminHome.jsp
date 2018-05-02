@@ -2,9 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Topic</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 
 </head>
 <body>
@@ -24,7 +25,7 @@
 
 </div>
 
-<li><a class="text-primary" href="/JavaTests/user/test/getTests">Выбрать тест</a></li>
+<li><a class="text-primary" href="/JavaTests/admin/users/getUsers">Список пользователей</a></li>
 
 </body>
 </html>

@@ -29,10 +29,10 @@ public class Test {
         this.name = name;
     }
 
-    public Test(int id, String name, String description) {
-        this.id = id;
+    public Test(String name, String description, Topic topic) {
         this.name = name;
         this.description = description;
+        this.topic = topic;
     }
 
     public int getId() {

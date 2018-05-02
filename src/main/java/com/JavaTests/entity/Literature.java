@@ -21,6 +21,11 @@ public class Literature {
     public Literature() {
     }
 
+    public Literature(String description, Question question){
+        this.description = description;
+        this.question = question;
+    }
+
     public int getId() {
         return id;
     }

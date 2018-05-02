@@ -11,14 +11,15 @@
 <head>
     <title>Test</title>
 
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 
-<form method="post" id = "question" action="/user/test/getAnswer" onsubmit="return check();">
+<form method="post" id = "question" action="/JavaTests/user/test/getAnswer" onsubmit="return check();">
     ${question.description}<br>
 
     <c:forEach items="${answerList}" var="answer">
@@ -32,8 +33,6 @@
 </form>
 
 <script>
-
-   // window.onbeforeunload = function() { return "С этой страницы назад не жалательно переходить."; };
 
    function check() {
 

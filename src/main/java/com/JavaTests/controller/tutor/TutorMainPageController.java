@@ -3,9 +3,9 @@ package com.JavaTests.controller.tutor;
 import com.JavaTests.entity.Question;
 import com.JavaTests.entity.Test;
 import com.JavaTests.entity.Topic;
-import com.JavaTests.services.tutorService.QuestionService;
-import com.JavaTests.services.tutorService.TestService;
-import com.JavaTests.services.tutorService.TopicService;
+import com.JavaTests.services.QuestionService;
+import com.JavaTests.services.TestService;
+import com.JavaTests.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ public class TutorMainPageController {
     private QuestionService questionService;
 
     @RequestMapping(value = "/tutorMainPage", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-    public String getTutorPage() {
+    public String getMainPage() {
         return "tutor/tutorMain";
     }
 
